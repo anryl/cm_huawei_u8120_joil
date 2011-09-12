@@ -1,0 +1,5 @@
+CyanogenMod device configuration for the Huawei U8120
+
+Pre-Setup
+=========
+Execute "extract-files.sh" to extract prebuilt libraries (from a working device)( for 2.6.32.9 a U8160 rom is ideal)

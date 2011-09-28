@@ -34,7 +34,7 @@ TARGET_CPU_ABI := armeabi-v6j
 
 # Target properties
 TARGET_OTA_ASSERT_DEVICE := u8120
-TARGET_BOOTLOADER_BOARD_NAME=u8120
+TARGET_BOOTLOADER_BOARD_NAME := u8120
 
 # Target information
 TARGET_NO_BOOTLOADER := true
@@ -53,15 +53,17 @@ BOARD_USES_QCOM_LIBRPC := true
 
 ## GPS
 BOARD_USES_QCOM_GPS := true
-BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := U8120
+BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := u8120
 BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 3200
 
 # Browser
 JS_ENGINE := v8
 
-# USB
+# USB mass storage
+BOARD_CUSTOM_USB_CONTROLLER := ../../device/huawei/u8120/UsbController.cpp
 BOARD_USE_USB_MASS_STORAGE_SWITCH := true
-BOARD_UMS_LUNFILE := "/sys/devices/platform/usb_mass_storage/lun0/file"
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/msm_hsusb/gadget/lun"
+BOARD_UMS_LUNFILE := "/sys/devices/platform/msm_hsusb/gadget/lun0/file"
 
 # Sensors
 TARGET_USES_OLD_LIBSENSORS_HAL := true
@@ -74,11 +76,6 @@ BOARD_LDPI_RECOVERY := true
 # Audio
 BOARD_USES_GENERIC_AUDIO := false
 TARGET_PROVIDES_LIBAUDIO := true
-
-# FM Radio
-BOARD_HAVE_FM_RADIO := true
-BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
-BOARD_FM_DEVICE := si4708
 
 # HW
 BOARD_USES_QCOM_HARDWARE := true
@@ -93,15 +90,13 @@ TARGET_SF_NEEDS_REAL_DIMENSIONS := true
 BOARD_NO_RGBX_8888 := true
 BOARD_EGL_CFG := device/huawei/u8120/prebuilt/lib/egl/egl.cfg
 TARGET_USES_16BPPSURFACE_FOR_OPAQUE := true
+TARGET_ELECTRONBEAM_FRAMES := 10
 
 # RIL
 TARGET_PROVIDES_LIBRIL := true
 BOARD_HAS_LIMITED_EGL := true
 
-TARGET_ELECTRONBEAM_FRAMES := 10
-
 # Wifi related defines
-WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/2.6.29-perf/tun.ko"
 BOARD_WPA_SUPPLICANT_DRIVER := AWEXT
 WIFI_DRIVER_MODULE_PATH     := "/system/wifi/ar6000.ko"
 WIFI_DRIVER_MODULE_NAME     := "ar6000"
@@ -110,13 +105,10 @@ WIFI_DRIVER_MODULE_NAME     := "ar6000"
 WITH_JIT := true
 ENABLE_JSC_JIT := true
 
-# Add TSCalibration premissions
-TARGET_PROVIDES_INIT_RC := true
-
 # Kernel
 BOARD_KERNEL_BASE := 0x00200000
-BOARD_KERNEL_CMDLINE := mem=211M console=ttyMSM2,115200n8 androidboot.hardware=qcom console=ttyUSBCONSOLE0 androidboot.console=ttyUSBCONSOLE0
-BOARD_PAGE_SIZE := 4096
+BOARD_KERNEL_CMDLINE := mem=211M console=ttyMSM2,115200n8 androidboot.hardware=u8120
+BOARD_KERNEL_PAGESIZE := 4096
 
 # # cat /proc/mtd
 # dev:    size   erasesize  name

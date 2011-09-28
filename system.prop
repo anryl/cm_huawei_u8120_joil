@@ -1,5 +1,5 @@
 #
-# system.prop for U8120
+# system.prop for U8150
 #
 
 # Graphics
@@ -15,7 +15,7 @@ persist.sys.purgeable_assets=1
 
 # WiFi
 wifi.interface=eth0
-wifi.supplicant_scan_interval=30
+wifi.supplicant_scan_interval=60
 
 # RIL
 rild.libargs=-d /dev/smd0
@@ -30,15 +30,8 @@ pref_lock_home=1
 ro.workaround.noautofocus=1
 
 # System and Misc.
-keyguard.no_require_sim=true \
-ro.com.android.dateformat=dd-MM-yyyy \
-ro.ril.hsxpa=1 \
-ro.ril.gprsclass=10 \
 dalvik.vm.execution-mode=int:jit
 dalvik.vm.heapsize=32m
 ro.com.google.locationfeatures=0
 ro.tether.denied=false
 sys.checkfs.fat=false
-debug.sf.hw=0 \
-ro.sf.hwrotation=0 \
-ro.kernel.android.checkjni=0

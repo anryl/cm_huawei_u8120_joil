@@ -6,3 +6,5 @@
 /recovery   	mtd         recovery
 /sdcard     	vfat        /dev/block/mmcblk0p1    /dev/block/mmcblk0
 /system     	yaffs2      system
+
+

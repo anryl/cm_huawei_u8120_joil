@@ -17,7 +17,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 
 # The gps config appropriate for this device
-$(call inherit-product, device/common/gps/gps_us_supl.mk)
+$(call inherit-product, device/common/gps/gps_eu_supl.mk)
 
 #$(call inherit-product-if-exists, vendor/huawei/u8120/u8120-vendor.mk)
 
@@ -26,35 +26,21 @@ DEVICE_PACKAGE_OVERLAYS += device/huawei/u8120/overlay
 PRODUCT_PACKAGES += \
     libRS \
     hwprops \
-    rzscontrol \
-    libOmxCore \
-    libmm-omxcore \
-    libOmxVidEnc \
     Gallery \
-    Stk \
-    Provision \
-    LatinIME \
+    lights.msm7k \
     copybit.u8120 \
-    FM \
-    SpareParts \
-    CMParts \
-    CMStats \
-    dexpreopt
-
-# FM RADIO
-PRODUCT_PACKAGES += \
-    FM \
-    hcitool
+    gps.u8120
 
 # TSCAlibration	
 PRODUCT_PACKAGES += \
-    tccgetserial \
     TSCalibration
 
 # Live Wallpapers
 PRODUCT_PACKAGES += \
     librs_jni \
+    LiveWallpapers \
     LiveWallpapersPicker \
+    VisualizationWallpapers
 
 # Live Wallpapers support
 PRODUCT_COPY_FILES += \
@@ -64,23 +50,17 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/huawei/u8120/prebuilt/etc/vold.fstab:system/etc/vold.fstab
 
-# Compcache module
-PRODUCT_COPY_FILES += \
-    device/huawei/u8120/prebuilt/modules/ramzswap.ko:system/lib/modules/2.6.29-perf/ramzswap.ko
-
 # Board-specific init
 PRODUCT_COPY_FILES += \
     device/huawei/u8120/prebuilt/initlogo.rle:root/initlogo.rle
 
-# DHCP config for wifi
 PRODUCT_COPY_FILES += \
-    device/huawei/u8120/prebuilt/etc/dhcpcd/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf
+    device/huawei/u8120/prebuilt/ueventd.u8120.rc:root/ueventd.u8120.rc \
+    device/huawei/u8120/prebuilt/init.u8120.rc:root/init.u8120.rc
 
+# Media configuration xml file
 PRODUCT_COPY_FILES += \
-    device/huawei/u8120/prebuilt/init.rc:root/init.rc
-
-PRODUCT_COPY_FILES += \
-    device/huawei/u8120/prebuilt/ueventd.qcom.rc:root/ueventd.qcom.rc
+    device/huawei/u8120/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml
 
 # Keychars & Keylayouts
 PRODUCT_COPY_FILES += \
@@ -91,13 +71,7 @@ PRODUCT_COPY_FILES += \
     device/huawei/u8120/prebuilt/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
     device/huawei/u8120/prebuilt/keylayout/surf_keypad.kl:system/usr/keylayout/surf_keypad.kl
 
-PRODUCT_PROPERTY_OVERRIDES := \
-    keyguard.no_require_sim=true \
-    ro.com.android.dateformat=dd-MM-yyyy \
-    ro.ril.hsxpa=1 \
-    ro.ril.gprsclass=10 \
-
-# Install the features available on this device.
+# Hardware permissions
 PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     frameworks/base/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
@@ -110,34 +84,22 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/base/data/etc/android.hardware.touchscreen.xml:system/etc/permissions/android.hardware.touchscreen.xml
 
-# Perfomance tweaks
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.compcache.default=0
-
-# Don't put dexfiles in /cache on u8120
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dexopt-data-only=1
-	
-# Media configuration xml file
-PRODUCT_COPY_FILES += \
-    device/huawei/u8120/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml
-
-# wpa_supplicant configuration file
-PRODUCT_COPY_FILES += \
-    device/huawei/u8120/prebuilt/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
 
 # Sound and OMX
 PRODUCT_COPY_FILES += \
     device/huawei/u8120/prebuilt/etc/AudioFilter.csv:system/etc/AudioFilter.csv \
     device/huawei/u8120/prebuilt/etc/AudioFilterU8120.csv:system/etc/AudioFilterU8120.csv \
     device/huawei/u8120/prebuilt/etc/AutoVolumeControl.txt:system/etc/AutoVolumeControl.txt \
+    device/huawei/u8120/prebuilt/etc/01_qc.cfg:system/etc/01_qc.cfg \
     vendor/huawei/u8120/proprietary/libaudioeq.so:system/lib/libaudioeq.so \
-    vendor/huawei/u8120/proprietary/libmm-adspsvc.so:system/lib/libmm-adspsvc.so \
+    vendor/huawei/u8120/proprietary/libOmxCore.so:system/lib/libOmxCore.so \
     vendor/huawei/u8120/proprietary/libOmxH264Dec.so:system/lib/libOmxH264Dec.so \
     vendor/huawei/u8120/proprietary/libOmxMpeg4Dec.so:system/lib/libOmxMpeg4Dec.so \
     vendor/huawei/u8120/proprietary/libOmxVidEnc.so:system/lib/libOmxVidEnc.so \
-    vendor/huawei/u8120/proprietary/libsnd.so:system/lib/libsnd.so \
-    device/huawei/u8120/prebuilt/etc/01_qc.cfg:system/etc/01_qc.cfg
+    vendor/huawei/u8120/proprietary/libOmxWmvDec.so:system/lib/libOmxWmvDec.so \
+    vendor/huawei/u8120/proprietary/libmm-adspsvc.so:system/lib/libmm-adspsvc.so \
+    vendor/huawei/u8120/proprietary/libmm-omxcore.so:system/lib/libmm-omxcore.so \
+    vendor/huawei/u8120/proprietary/libsnd.so:system/lib/libsnd.so
 
 # TScalibration files
 PRODUCT_COPY_FILES += \
@@ -145,18 +107,13 @@ PRODUCT_COPY_FILES += \
 
 # HW
 PRODUCT_COPY_FILES += \
-    vendor/huawei/u8120/proprietary/lights.msm7k.so:system/lib/hw/lights.msm7k.so \
-	device/huawei/u8120/prebuilt/lib/hw/sensors.u8120.so:system/lib/hw/sensors.u8120.so \
-    device/huawei/u8120/prebuilt/lib/hw/gralloc.msm7k.so:system/lib/hw/gralloc.msm7k.so \
-    device/huawei/u8120/prebuilt/lib/hw/gps.default.so:system/lib/hw/gps.default.so
-	
+    device/huawei/u8120/prebuilt/lib/hw/sensors.default.so:system/lib/hw/sensors.default.so \
+    device/huawei/u8120/prebuilt/lib/hw/gralloc.msm7k.so:system/lib/hw/gralloc.msm7k.so
+
 # Sensors
 PRODUCT_COPY_FILES += \
     vendor/huawei/u8120/proprietary/akmd2:system/bin/akmd2
 
-# GPS
-PRODUCT_COPY_FILES += \
-    device/huawei/u8120/prebuilt/etc/gps.conf:system/etc/gps.conf
 
 # Proprietary RIL related and Bluetooth
 PRODUCT_COPY_FILES += \
@@ -200,23 +157,27 @@ PRODUCT_COPY_FILES += \
 
 ## Wifi related
 PRODUCT_COPY_FILES += \
-    vendor/huawei/u8120/proprietary/ar6000.ko:system/wifi/ar6000.ko \
-    vendor/huawei/u8120/proprietary/iwlist:system/wifi/iwlist \
-    vendor/huawei/u8120/proprietary/caldata.bin.ar6002:system/wifi/caldata.bin.ar6002 \
-    vendor/huawei/u8120/proprietary/data.patch.hw2_0.bin.ar6002:system/wifi/data.patch.hw2_0.bin.ar6002 \
-    vendor/huawei/u8120/proprietary/device.bin:system/wifi/device.bin \
-    vendor/huawei/u8120/proprietary/udp_server:system/wifi/udp_server \
-    vendor/huawei/u8120/proprietary/data.patch.hw2_0.bin.ar6102:system/wifi/data.patch.hw2_0.bin.ar6102 \
-    vendor/huawei/u8120/proprietary/athtcmd_ram.bin:system/wifi/athtcmd_ram.bin \
-    vendor/huawei/u8120/proprietary/caldata.bin.ar6102:system/wifi/caldata.bin.ar6102 \
-    vendor/huawei/u8120/proprietary/artagent:system/wifi/artagent \
-    vendor/huawei/u8120/proprietary/athwlan.bin.z77:system/wifi/athwlan.bin.z77 \
-    vendor/huawei/u8120/proprietary/iwconfig:system/wifi/iwconfig \
-    vendor/huawei/u8120/proprietary/libwpa_client.so:system/lib/libwpa_client.so \
-    device/huawei/u8120/prebuilt/etc/apns-conf.xml:system/etc/apns-conf.xml
+    device/huawei/u8120/firmware/ar6000.ko:system/wifi/ar6000.ko \
+    device/huawei/u8120/firmware/athtcmd_ram.bin:system/wifi/athtcmd_ram.bin \
+    device/huawei/u8120/firmware/athwlan.bin.z77:system/wifi/athwlan.bin.z77 \
+    device/huawei/u8120/firmware/caldata.bin.ar6002:system/wifi/caldata.bin.ar6002 \
+    device/huawei/u8120/firmware/caldata.bin.ar6102:system/wifi/caldata.bin.ar6102 \
+    device/huawei/u8120/firmware/data.patch.hw2_0.bin.ar6002:system/wifi/data.patch.hw2_0.bin.ar6002 \
+    device/huawei/u8120/firmware/data.patch.hw2_0.bin:system/wifi/data.patch.hw2_0.bin \
+    device/huawei/u8120/firmware/device.bin:system/wifi/device.bin
 
+# DHCP config for wifi
 PRODUCT_COPY_FILES += \
-    device/huawei/u8120/prebuilt/modules/tun.ko:system/lib/modules/2.6.29-perf/tun.ko \
+    device/huawei/u8120/prebuilt/etc/dhcpcd/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf
+
+# wpa_supplicant configuration file
+PRODUCT_COPY_FILES += \
+    device/huawei/u8120/prebuilt/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
+
+
+#add autorun.iso to stop kernel complain about it..
+PRODUCT_COPY_FILES += \
+    device/huawei/u8120/prebuilt/autorun.iso:system/cdrom/autorun.iso \
 
 # Other
 PRODUCT_COPY_FILES += \
@@ -225,6 +186,7 @@ PRODUCT_COPY_FILES += \
     device/huawei/u8120/prebuilt/etc/init.d/12cm:system/etc/init.d/12cm
 
 PRODUCT_COPY_FILES += device/huawei/u8120/prebuilt/kernel:kernel
+
 
 ## (2) Also get non-open-source aspects if available
 $(call inherit-product-if-exists, vendor/huawei/u8120/u8120-vendor.mk)

@@ -9,6 +9,7 @@ bin/modempre
 bin/oem_rpc_svc
 bin/akmd2
 bin/qmuxd
+bin/rild
 bin/hci_qcomm_init
 
 lib/libaudioeq.so
@@ -51,4 +52,5 @@ chmod 755 ../../../vendor/huawei/u8120/proprietary/modempre
 chmod 755 ../../../vendor/huawei/u8120/proprietary/oem_rpc_svc
 chmod 755 ../../../vendor/huawei/u8120/proprietary/akmd2
 chmod 755 ../../../vendor/huawei/u8120/proprietary/qmuxd
+chmod 755 ../../../vendor/huawei/u8120/proprietary/rild
 chmod 755 ../../../vendor/huawei/u8120/proprietary/hci_qcomm_init
